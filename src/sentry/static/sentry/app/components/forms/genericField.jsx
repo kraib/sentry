@@ -10,6 +10,7 @@ import PasswordField from './passwordField';
 import RangeField from './rangeField';
 import Select2FieldAutocomplete from './select2FieldAutocomplete';
 import Select2Field from './select2Field';
+import Select2TextField from './select2TextField';
 import TextField from './textField';
 import TextareaField from './textareaField';
 
@@ -45,6 +46,7 @@ class GenericField extends React.Component {
       case 'string':
       case 'text':
       case 'url':
+        if (props.choices) return <Select2TextField {...props} />;
         return <TextField {...props} />;
       case 'number':
         return <NumberField {...props} />;
