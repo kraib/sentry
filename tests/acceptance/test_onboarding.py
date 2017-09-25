@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from sentry.models import Project
 from sentry.testutils import AcceptanceTestCase
 
 
@@ -33,4 +34,9 @@ class OrganizationOnboardingTest(AcceptanceTestCase):
 
         self.browser.wait_until('.onboarding-Configure')
         self.browser.snapshot(name='onboarding-configure-project')
+
+        assert Project.objects.filter(organization=self.org).exists()
+
         self.browser.click('.btn-primary')
+        self.browser.wait_until_not('.loading')
+        self.browser.snapshot(name='onboarding-created-project')
